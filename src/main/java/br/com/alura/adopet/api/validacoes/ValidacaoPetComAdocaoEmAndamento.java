@@ -11,12 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-public class ValidacaoPetComAdocaoEmAndamento {
+public class ValidacaoPetComAdocaoEmAndamento implements ValidacaoSolicitacaoAdocao {
     @Autowired
     private AdocaoRepository adocaoRepository;
     @Autowired
     private PetRepository petRepository;
-    public void validar(SolicitacaoAdocaoDTO dto){
+    public void validacao(SolicitacaoAdocaoDTO dto){
         List<Adocao> adocoes = adocaoRepository.findAll();
         Pet pet = petRepository.getReferenceById(dto.idPet());
         for (Adocao a : adocoes) {

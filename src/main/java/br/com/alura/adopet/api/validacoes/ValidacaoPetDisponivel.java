@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ValidacaoPetDisponivel {
+public class ValidacaoPetDisponivel implements ValidacaoSolicitacaoAdocao{
     @Autowired
     private PetRepository petRepository;
 
-    public void validar(SolicitacaoAdocaoDTO dto) {
+    public void validacao(SolicitacaoAdocaoDTO dto) {
         Pet pet = petRepository.getReferenceById(dto.idPet());
         if (pet.getAdotado()) {
             throw new ValidacaoException("Pet já foi adotado!");
