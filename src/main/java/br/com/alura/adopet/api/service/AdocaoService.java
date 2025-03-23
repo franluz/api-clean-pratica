@@ -44,12 +44,7 @@ public class AdocaoService {
 
         validacaoSolicitacaoAdocaos.forEach(it -> it.validacao(dto));
 
-        Adocao adocao = new Adocao();
-        adocao.setData(LocalDateTime.now());
-        adocao.setPet(pet);
-        adocao.setTutor(tutor);
-        adocao.setMotivo(dto.motivo());
-        adocao.setStatus(StatusAdocao.AGUARDANDO_AVALIACAO);
+        Adocao adocao = new Adocao(tutor,pet,dto.motivo());
         repository.save(adocao);
 
 
@@ -63,15 +58,14 @@ public class AdocaoService {
 
     public void aprovar(AprovacaoAdocaoDTO dto) {
         Adocao adocao = repository.getReferenceById(dto.idAdocao());
-        adocao.setStatus(StatusAdocao.APROVADO);
+        adocao.marcarComoAprovado();
         emailService.enviarEmail(adocao.getTutor().getEmail(), "Adoção aprovada", "Parabéns " + adocao.getTutor().getNome() + "!\n\nSua adoção do pet " + adocao.getPet().getNome() + ", solicitada em " + adocao.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")) + ", foi aprovada.\nFavor entrar em contato com o abrigo " + adocao.getPet().getAbrigo().getNome() + " para agendar a busca do seu pet.");
     }
 
     public void reprovar(ReprovacaoAdocaoDTO dto) {
         Adocao adocao = repository.getReferenceById(dto.idAdocao());
-        adocao.setJustificativaStatus(dto.justificativa());
-        adocao.setStatus(StatusAdocao.REPROVADO);
-        emailService.enviarEmail(adocao.getTutor().getEmail(),
+        adocao.marcarComoReprovado(dto.justificativa());
+         emailService.enviarEmail(adocao.getTutor().getEmail(),
                 "Adoção reprovada",
                 "Olá " + adocao.getTutor().getNome()
                         + "!\n\nInfelizmente sua adoção do pet "

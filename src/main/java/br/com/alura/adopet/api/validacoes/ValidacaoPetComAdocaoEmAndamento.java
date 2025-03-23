@@ -14,15 +14,12 @@ import java.util.List;
 public class ValidacaoPetComAdocaoEmAndamento implements ValidacaoSolicitacaoAdocao {
     @Autowired
     private AdocaoRepository adocaoRepository;
-    @Autowired
-    private PetRepository petRepository;
+
     public void validacao(SolicitacaoAdocaoDTO dto){
-        List<Adocao> adocoes = adocaoRepository.findAll();
-        Pet pet = petRepository.getReferenceById(dto.idPet());
-        for (Adocao a : adocoes) {
-            if (a.getPet() == pet && a.getStatus() == StatusAdocao.AGUARDANDO_AVALIACAO) {
+        boolean petTemAdocaoEmAndamento = adocaoRepository.existsByPetIdAndStatus(dto.idPet(),StatusAdocao.AGUARDANDO_AVALIACAO);
+            if (petTemAdocaoEmAndamento) {
                 throw new ValidacaoException("Pet já está aguardando avaliação para ser adotado!");
             }
-        }
+
     }
 }

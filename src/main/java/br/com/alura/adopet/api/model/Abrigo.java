@@ -5,12 +5,14 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import lombok.Builder;
 
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "abrigos")
+@Builder
 public class Abrigo {
 
     @Id
