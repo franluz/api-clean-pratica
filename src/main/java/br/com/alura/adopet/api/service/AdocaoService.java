@@ -26,7 +26,6 @@ public class AdocaoService {
     private PetRepository petRepository;
     @Autowired
     private TutorRepository tutorRepository;
-
     @Autowired
     private EmailService emailService;
     @Autowired
