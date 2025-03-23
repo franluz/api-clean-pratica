@@ -2,15 +2,13 @@ package br.com.alura.adopet.api.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
 @Table(name = "adocoes")
-@NoArgsConstructor
 public class Adocao {
 
     @Id
@@ -39,6 +37,10 @@ public class Adocao {
         if (o == null || getClass() != o.getClass()) return false;
         Adocao adocao = (Adocao) o;
         return Objects.equals(id, adocao.id);
+    }
+
+    public Adocao() {
+         super();
     }
 
     public Adocao(Tutor tutor, Pet pet, String motivo) {
