@@ -11,5 +11,7 @@ public interface TutorRepository extends JpaRepository<Tutor, Long> {
 
     Tutor getByTelefoneAndEmail(String telefone, String email);
 
+    Tutor getByTelefone(String telefone);
+
 
 }

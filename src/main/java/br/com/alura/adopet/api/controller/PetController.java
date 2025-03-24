@@ -22,7 +22,9 @@ public class PetController {
     @GetMapping
     public ResponseEntity<List<PetDTO>> listarTodosDisponiveis() {
         return ResponseEntity.ok(repository.findAllByAdotado(false).stream()
-                .map(item -> new PetDTO(item.getNome(),item.getRaca(),item.getCor())).toList());
+                .map(item -> new PetDTO(item.getNome(),
+                                             item.getRaca(),
+                                             item.getCor())).toList());
     }
 
 }
