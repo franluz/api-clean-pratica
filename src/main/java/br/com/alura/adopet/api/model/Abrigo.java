@@ -11,6 +11,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "abrigos")
+
 public class Abrigo {
 
     @Id
@@ -44,6 +45,16 @@ public class Abrigo {
         return Objects.equals(id, abrigo.id);
     }
 
+    public Abrigo() {
+        super();
+    }
+
+    public Abrigo(String nome, String email, String telefone) {
+        this.email = email;
+        this.nome = nome;
+        this.telefone = telefone;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id);
@@ -73,4 +84,4 @@ public class Abrigo {
         return pets;
     }
 
-    }
+}

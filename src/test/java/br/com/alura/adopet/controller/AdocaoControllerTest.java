@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 @AutoConfigureMockMvc
@@ -46,7 +47,7 @@ public class AdocaoControllerTest {
 
     @Test
     public void testSolicitarAdocao() throws Exception {
-        //    doReturn(SuccessFrases.SUCCESS.getLabel()).when(adocaoService).doReset();
+     when(adocaoService).wait();
         mockMvc.perform(MockMvcRequestBuilders
                         .post(SOLICITACAO_URL)
                          .param("id_pet", "1L")
