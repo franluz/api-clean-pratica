@@ -3,6 +3,7 @@ package br.com.alura.adopet.api.service;
 import br.com.alura.adopet.api.dto.CadastrarAbrigoDTO;
 import br.com.alura.adopet.api.dto.ListarAbrigoDTO;
 import br.com.alura.adopet.api.dto.PetDTO;
+import br.com.alura.adopet.api.enumm.ValidacaoFrases;
 import br.com.alura.adopet.api.exception.ValidacaoException;
 import br.com.alura.adopet.api.model.Abrigo;
 import br.com.alura.adopet.api.model.Pet;
@@ -28,7 +29,7 @@ public class AbrigoService {
         boolean emailJaCadastrado = repository.existsByEmail(dto.email());
 
         if (nomeJaCadastrado || telefoneJaCadastrado || emailJaCadastrado) {
-            throw new ValidacaoException("Dados já cadastrados para outro abrigo!");
+            throw new ValidacaoException(ValidacaoFrases.DADOS_JA_CADASTRADOS_PARA_ABRIGO.toString());
         } else {
             Abrigo abrigo = new Abrigo(dto.nome(), dto.email(), dto.telefone());
             repository.save(abrigo);
