@@ -1,5 +1,6 @@
 package br.com.alura.adopet.api.controller;
 
+import br.com.alura.adopet.api.dto.PetDTO;
 import br.com.alura.adopet.api.model.Pet;
 import br.com.alura.adopet.api.repository.PetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +20,9 @@ public class PetController {
     private PetRepository repository;
 
     @GetMapping
-    public ResponseEntity<List<Pet>> listarTodosDisponiveis() {
-        List<Pet> pets = repository.findAll();
-        List<Pet> disponiveis = new ArrayList<>();
-        for (Pet pet : pets) {
-            if (pet.getAdotado() == false) {
-                disponiveis.add(pet);
-            }
-        }
-        return ResponseEntity.ok(disponiveis);
+    public ResponseEntity<List<PetDTO>> listarTodosDisponiveis() {
+        return ResponseEntity.ok(repository.findAllByAdotado(false).stream()
+                .map(item -> new PetDTO(item.getNome(),item.getRaca(),item.getCor())).toList());
     }
 
 }
