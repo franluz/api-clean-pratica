@@ -43,13 +43,13 @@ public class CalculadoraProbabilidadesAdocaoTest {
     }
 
     @Test
-    void gatoComQuatroSAnosEmaisDeQuatroQuilos() {
+    void deveriaRetornarProbabilidadeAltaParaPetPesoBaixoEIdadeBaixa() {
         CalculadoraProbabilidadeAdocao calculadoraProbabilidadeAdocao = new CalculadoraProbabilidadeAdocao();
         ProbabilidadeAdocao probabilidadeAdocao = calculadoraProbabilidadeAdocao.calcular(pet);
         Assertions.assertEquals(ProbabilidadeAdocao.ALTA, probabilidadeAdocao);
     }
     @Test
-    void gatoComMaisDeDezAnosEMaisDeQuatroQuilos(){
+    void deveriaRetornarProbabilidadeMediaPetComIdadeAvancada(){
         CalculadoraProbabilidadeAdocao calculadoraProbabilidadeAdocao = new CalculadoraProbabilidadeAdocao();
         ProbabilidadeAdocao probabilidadeAdocao = calculadoraProbabilidadeAdocao.calcular(pet1);
         Assertions.assertEquals(ProbabilidadeAdocao.MEDIA, probabilidadeAdocao);
