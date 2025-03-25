@@ -9,6 +9,7 @@ import br.com.alura.adopet.api.model.TipoPet;
 import br.com.alura.adopet.api.service.CalculadoraProbabilidadeAdocao;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class CalculadoraProbabilidadesAdocaoTest {
@@ -43,12 +44,14 @@ public class CalculadoraProbabilidadesAdocaoTest {
     }
 
     @Test
+    @DisplayName("Probabilidade em cima do pet com peso baixo e idade baixa deveria ser alta")
     void deveriaRetornarProbabilidadeAltaParaPetPesoBaixoEIdadeBaixa() {
         CalculadoraProbabilidadeAdocao calculadoraProbabilidadeAdocao = new CalculadoraProbabilidadeAdocao();
         ProbabilidadeAdocao probabilidadeAdocao = calculadoraProbabilidadeAdocao.calcular(pet);
         Assertions.assertEquals(ProbabilidadeAdocao.ALTA, probabilidadeAdocao);
     }
     @Test
+    @DisplayName("Probabilidade em cima do pet de idade avancada deveria ser MEDIA")
     void deveriaRetornarProbabilidadeMediaPetComIdadeAvancada(){
         CalculadoraProbabilidadeAdocao calculadoraProbabilidadeAdocao = new CalculadoraProbabilidadeAdocao();
         ProbabilidadeAdocao probabilidadeAdocao = calculadoraProbabilidadeAdocao.calcular(pet1);
