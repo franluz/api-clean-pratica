@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -47,7 +48,7 @@ public class AdocaoControllerTest {
 
     @Test
     public void testSolicitarAdocao() throws Exception {
-     when(adocaoService).wait();
+    // BDDMockito(adocaoService).wait();
         mockMvc.perform(MockMvcRequestBuilders
                         .post(SOLICITACAO_URL)
                          .param("id_pet", "1L")
