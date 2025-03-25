@@ -1,6 +1,6 @@
 package br.com.alura.adopet.api.service;
 
-import br.com.alura.adopet.api.dto.CadastrarPetDTO;
+import br.com.alura.adopet.api.dto.CadastroPetDto;
 import br.com.alura.adopet.api.dto.PetDTO;
 import br.com.alura.adopet.api.exception.ValidacaoException;
 import br.com.alura.adopet.api.model.Abrigo;
@@ -37,7 +37,7 @@ public class PetService {
                 item.getCor())).toList();
     }
 
-    private Abrigo carregaAbrigoPet(String idOuNome, CadastrarPetDTO dto) {
+    private Abrigo carregaAbrigoPet(String idOuNome, CadastroPetDto dto) {
         Abrigo abrigo = null;
         try {
             Long id = Long.parseLong(idOuNome);
@@ -53,7 +53,7 @@ public class PetService {
         return abrigo;
     }
 
-    public void cadastrar(String idOuNome, CadastrarPetDTO dto) {
+    public void cadastrar(String idOuNome, CadastroPetDto dto) {
 
         try {
             repository.save(carregaAbrigoPet(idOuNome, dto));

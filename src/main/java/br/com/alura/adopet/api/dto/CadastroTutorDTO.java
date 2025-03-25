@@ -1,4 +1,9 @@
 package br.com.alura.adopet.api.dto;
 
-public record CadastroTutorDTO(String nome,String email,String telefone) {
+import jakarta.validation.constraints.NotBlank;
+
+public record CadastroTutorDTO(
+        @NotBlank  String nome,
+        @NotBlank String email,
+        @NotBlank String telefone) {
 }

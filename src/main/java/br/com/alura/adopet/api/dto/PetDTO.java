@@ -1,4 +1,9 @@
 package br.com.alura.adopet.api.dto;
 
-public record PetDTO(String nome,String raca,String cor) {
+import jakarta.validation.constraints.NotBlank;
+
+public record PetDTO(
+        @NotBlank String nome,
+        @NotBlank String raca,
+        @NotBlank String cor) {
 }
