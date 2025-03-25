@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 public class CalculadoraProbabilidadesAdocaoTest {
     Pet pet;
+    Pet pet1;
     Abrigo abrigo;
 
     @BeforeEach
@@ -31,6 +32,14 @@ public class CalculadoraProbabilidadesAdocaoTest {
                 "Cinza",
                 4.0f
         ), abrigo);
+        pet1 = new Pet(new CadastroPetDto(
+                TipoPet.GATO,
+                "Miau",
+                "Siames",
+                15,
+                "Cinza",
+                4.0f
+        ), abrigo);
     }
 
     @Test
@@ -38,5 +47,11 @@ public class CalculadoraProbabilidadesAdocaoTest {
         CalculadoraProbabilidadeAdocao calculadoraProbabilidadeAdocao = new CalculadoraProbabilidadeAdocao();
         ProbabilidadeAdocao probabilidadeAdocao = calculadoraProbabilidadeAdocao.calcular(pet);
         Assertions.assertEquals(ProbabilidadeAdocao.ALTA, probabilidadeAdocao);
+    }
+    @Test
+    void gatoComMaisDeDezAnosEMaisDeQuatroQuilos(){
+        CalculadoraProbabilidadeAdocao calculadoraProbabilidadeAdocao = new CalculadoraProbabilidadeAdocao();
+        ProbabilidadeAdocao probabilidadeAdocao = calculadoraProbabilidadeAdocao.calcular(pet1);
+        Assertions.assertEquals(ProbabilidadeAdocao.MEDIA, probabilidadeAdocao);
     }
 }
