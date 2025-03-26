@@ -1,6 +1,7 @@
 package br.com.alura.adopet.api.validacoes;
 
 import br.com.alura.adopet.api.dto.SolicitacaoAdocaoDTO;
+import br.com.alura.adopet.api.enumm.ValidacaoFrases;
 import br.com.alura.adopet.api.exception.ValidacaoException;
 import br.com.alura.adopet.api.model.Adocao;
 import br.com.alura.adopet.api.model.Pet;
@@ -15,11 +16,13 @@ public class ValidacaoPetComAdocaoEmAndamento implements ValidacaoSolicitacaoAdo
     @Autowired
     private AdocaoRepository adocaoRepository;
 
-    public void validacao(SolicitacaoAdocaoDTO dto){
-        boolean petTemAdocaoEmAndamento = adocaoRepository.existsByPetIdAndStatus(dto.idPet(),StatusAdocao.AGUARDANDO_AVALIACAO);
-            if (petTemAdocaoEmAndamento) {
-                throw new ValidacaoException("Pet já está aguardando avaliação para ser adotado!");
-            }
+    public void validacao(SolicitacaoAdocaoDTO dto) {
+        boolean petTemAdocaoEmAndamento =
+                adocaoRepository.existsByPetIdAndStatus(dto.idPet(), StatusAdocao.AGUARDANDO_AVALIACAO);
+        if (petTemAdocaoEmAndamento) {
+            throw new ValidacaoException(
+                    ValidacaoFrases.PET_COM_ADOCAO_EM_ANDAMENTO.toString());
+        }
 
     }
 }
