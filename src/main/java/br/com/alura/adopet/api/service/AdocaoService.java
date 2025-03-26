@@ -29,14 +29,14 @@ public class AdocaoService {
     @Autowired
     private EmailService emailService;
     @Autowired
-    List<ValidacaoSolicitacaoAdocao> validacaoSolicitacaoAdocaos;
+    List<ValidacaoSolicitacaoAdocao> validacaoSolicitacaoAdocao;
 
 
     public void solicitar(SolicitacaoAdocaoDTO dto) {
         Pet pet = petRepository.getReferenceById(dto.idPet());
         Tutor tutor = tutorRepository.getReferenceById(dto.idTutor());
 
-        validacaoSolicitacaoAdocaos.forEach(it -> it.validacao(dto));
+        validacaoSolicitacaoAdocao.forEach(it -> it.validacao(dto));
 
         Adocao adocao = new Adocao(tutor,pet,dto.motivo());
         repository.save(adocao);
