@@ -11,22 +11,22 @@ import br.com.alura.adopet.api.repository.TutorRepository;
 import br.com.alura.adopet.api.service.AdocaoService;
 import br.com.alura.adopet.api.service.EmailService;
 import br.com.alura.adopet.api.validacoes.ValidacaoSolicitacaoAdocao;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import static org.mockito.Answers.CALLS_REAL_METHODS;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.withSettings;
 
 @ExtendWith(MockitoExtension.class)
 class AdocaoServiceTest {
@@ -50,8 +50,15 @@ class AdocaoServiceTest {
     SolicitacaoAdocaoDTO dto;
     @Captor
     ArgumentCaptor<Adocao> adocaoArgumentCaptor;
+    @Spy
+    List<ValidacaoSolicitacaoAdocao> validacaoSolicitacaoAdocao =
+            mock(ArrayList.class, withSettings()
+                    .useConstructor().defaultAnswer(CALLS_REAL_METHODS));
     @Mock
-    List<ValidacaoSolicitacaoAdocao> validacaoSolicitacaoAdocao;
+    ValidacaoSolicitacaoAdocao validador1;
+    @Mock
+    ValidacaoSolicitacaoAdocao validador2;
+
     @Mock
     EmailService emailService;
 
@@ -61,6 +68,19 @@ class AdocaoServiceTest {
     }
 
     @Test
+    void deveriaValidarSalvarAdocaoAoSolicitar() {
+        given(petRepository.getReferenceById(dto.idPet())).willReturn(pet);
+        given(tutorRepository.getReferenceById(dto.idTutor())).willReturn(tutor);
+        given(pet.getAbrigo()).willReturn(abrigo);
+        validacaoSolicitacaoAdocao.add(validador1);
+        validacaoSolicitacaoAdocao.add(validador2);
+        adocaoService.solicitar(dto);
+        BDDMockito.then(validador1).should().validacao(dto);
+        BDDMockito.then(validador2).should().validacao(dto);
+    }
+
+    @Test
+    @DisplayName("Deveria salvar adocao ao Solicitar")
     void deveriaSalvarAdocaoAoSolicitar() {
         given(petRepository.getReferenceById(dto.idPet())).willReturn(pet);
         given(tutorRepository.getReferenceById(dto.idTutor())).willReturn(tutor);

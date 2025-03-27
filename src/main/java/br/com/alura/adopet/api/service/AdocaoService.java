@@ -13,7 +13,6 @@ import br.com.alura.adopet.api.validacoes.ValidacaoSolicitacaoAdocao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -38,7 +37,7 @@ public class AdocaoService {
 
         validacaoSolicitacaoAdocao.forEach(it -> it.validacao(dto));
 
-        Adocao adocao = new Adocao(tutor,pet,dto.motivo());
+        Adocao adocao = new Adocao(tutor, pet, dto.motivo());
         repository.save(adocao);
 
 
@@ -59,7 +58,7 @@ public class AdocaoService {
     public void reprovar(ReprovacaoAdocaoDTO dto) {
         Adocao adocao = repository.getReferenceById(dto.idAdocao());
         adocao.marcarComoReprovado(dto.justificativa());
-         emailService.enviarEmail(adocao.getTutor().getEmail(),
+        emailService.enviarEmail(adocao.getTutor().getEmail(),
                 "Adoção reprovada",
                 "Olá " + adocao.getTutor().getNome()
                         + "!\n\nInfelizmente sua adoção do pet "
