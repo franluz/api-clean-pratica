@@ -45,7 +45,10 @@ public class AdocaoControllerTest {
         this.mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
     }
+@Test
+void deveriaDevolverCodigo400ParaSOlicitacaoDeadocaoComErros(){
 
+}
     @Test
     public void testSolicitarAdocao() throws Exception {
     // BDDMockito(adocaoService).wait();
