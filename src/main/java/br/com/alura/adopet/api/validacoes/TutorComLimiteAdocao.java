@@ -16,15 +16,19 @@ import java.util.Optional;
 public class TutorComLimiteAdocao implements ValidacaoSolicitacaoAdocao {
     @Autowired
     private AdocaoRepository repository;
+    @Autowired
+    private TutorRepository tutorRepository;
 
 
     private Integer MAXIMO_PERMITIDO = 5;
 
     public void validacao(SolicitacaoAdocaoDTO dto) {
-        List<Optional<Adocao>> adocoes = repository.findAllByIdTutor(dto.idTutor());
-        if (adocoes.stream().count() == MAXIMO_PERMITIDO) {
-            throw new ValidacaoException(ValidacaoFrases.TUTOR_MAXIMO_PERMITIDO.toString());
+        Optional<Tutor> tutor = tutorRepository.findById(dto.idTutor());
+        if (tutor.isPresent()) {
+            List<Optional<Adocao>> adocoes = repository.findAllByTutor(tutor.get());
+            if (adocoes.stream().count() == MAXIMO_PERMITIDO) {
+                throw new ValidacaoException(ValidacaoFrases.TUTOR_MAXIMO_PERMITIDO.toString());
+            }
         }
-
     }
 }

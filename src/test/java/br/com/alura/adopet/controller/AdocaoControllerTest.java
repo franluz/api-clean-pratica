@@ -2,64 +2,63 @@ package br.com.alura.adopet.controller;
 
 import br.com.alura.adopet.api.AdopetApiApplication;
 import br.com.alura.adopet.api.controller.AdocaoController;
+import br.com.alura.adopet.api.repository.AdocaoRepository;
 import br.com.alura.adopet.api.service.AdocaoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.MockitoAnnotations.initMocks;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @AutoConfigureMockMvc
-@ExtendWith(MockitoExtension.class)
 @SpringBootTest(
-        webEnvironment = SpringBootTest.WebEnvironment.MOCK,
-        classes = AdopetApiApplication.class)
+         classes = AdopetApiApplication.class)
 public class AdocaoControllerTest {
     @Autowired
     private MockMvc mockMvc;
     ObjectMapper objectMapper = new ObjectMapper();
     ObjectWriter objectWriter = objectMapper.writer();
-    @Mock
-    private AdocaoService adocaoService;
+    @MockBean
+    AdocaoService adocaoService;
+
     @InjectMocks
-    private AdocaoController controller;
+    private AdocaoController adocaoController;
     private String SOLICITACAO_URL = "/adocoes";
 
     @BeforeEach
     public void init() {
-        initMocks(this);
-        this.mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
     }
-@Test
-void deveriaDevolverCodigo400ParaSOlicitacaoDeadocaoComErros(){
 
-}
+    @Test
+    void deveriaDevolverCodigo400ParaSOlicitacaoDeadocaoComErros() {
+
+    }
+
     @Test
     public void testSolicitarAdocao() throws Exception {
-    // BDDMockito(adocaoService).wait();
-        mockMvc.perform(MockMvcRequestBuilders
-                        .post(SOLICITACAO_URL)
-                         .param("id_pet", "1L")
-                        .param("id_tutor", "1L")
-                        .param("motivo", "teste")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+        //BD(balance).when(adocaoService).ca(accountId);
 
-        ;
+        var response = mockMvc.perform(
+                        post(SOLICITACAO_URL)
+                                .content("{}")
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andReturn().getResponse();
+        Assertions.assertEquals(400, response.getStatus());
+
     }
 }

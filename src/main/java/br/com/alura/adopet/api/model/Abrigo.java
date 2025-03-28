@@ -27,7 +27,6 @@ public class Abrigo {
     private String email;
 
     @OneToMany(mappedBy = "abrigo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference("abrigo_pets")
     private List<Pet> pets;
 
     @Override

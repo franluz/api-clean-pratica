@@ -26,7 +26,6 @@ public class Tutor {
     private String email;
 
     @OneToMany(mappedBy = "tutor", fetch = FetchType.LAZY)
-    @JsonManagedReference("tutor_adocoes")
     private List<Adocao> adocoes;
 
     @Override
