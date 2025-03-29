@@ -46,7 +46,7 @@ public class AdocaoService {
                 + adocao.getPet().getNome()
                 + ". \nFavor avaliar para aprovação ou reprovação.");
 
-        // return ResponseEntity.ok().build();
+
     }
 
     public void aprovar(AprovacaoAdocaoDTO dto) {
