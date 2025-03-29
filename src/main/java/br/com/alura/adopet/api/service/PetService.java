@@ -6,6 +6,7 @@ import br.com.alura.adopet.api.exception.ValidacaoException;
 import br.com.alura.adopet.api.model.Abrigo;
 import br.com.alura.adopet.api.model.Pet;
 import br.com.alura.adopet.api.repository.AbrigoRepository;
+import br.com.alura.adopet.api.repository.PetRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,8 @@ import java.util.List;
 public class PetService {
     @Autowired
     private AbrigoRepository repository;
-
+    @Autowired
+    private PetRepository petRepository;
     public List<PetDTO> listarPets(String idOuNome) {
         List<Pet> pets = new ArrayList<Pet>();
         try {
@@ -60,5 +62,8 @@ public class PetService {
         } catch (EntityNotFoundException enfe) {
             throw new ValidacaoException(enfe.getMessage());
         }
+    }
+    public List<Pet> listarPetNaoAdotado(){
+        return petRepository.findAllByAdotado(false);
     }
 }

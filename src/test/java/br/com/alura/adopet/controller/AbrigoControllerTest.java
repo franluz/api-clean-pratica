@@ -1,5 +1,6 @@
 package br.com.alura.adopet.controller;
 
+import br.com.alura.adopet.UtilTest;
 import br.com.alura.adopet.api.AdopetApiApplication;
 import br.com.alura.adopet.api.dto.CadastroAbrigoDto;
 import br.com.alura.adopet.api.dto.CadastroPetDto;
@@ -20,8 +21,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.Random;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -49,12 +48,12 @@ class AbrigoControllerTest {
     @BeforeEach
     void init() {
         this.cadastroAbrigoDto = new CadastroAbrigoDto(
-                gerarNome(),
-                gerarTelefone(),
-                gerarEmail());
+                UtilTest.gerarNome(),
+                UtilTest. gerarTelefone(),
+                UtilTest.  gerarEmail());
         this.cadastroPetDto = new CadastroPetDto(
                 TipoPet.GATO,
-                gerarNome() + "FOFINHO",
+                UtilTest.gerarNome() + "FOFINHO",
                 "bible",
                 10,
                 "Pardo",
@@ -126,40 +125,5 @@ class AbrigoControllerTest {
     }
 
 
-    String gerarNome() {
-        String[] primeirosNomes = {
-                "Ana", "Carlos", "Beatriz", "Eduardo", "Fernanda", "João", "Juliana", "Marcelo", "Ricardo", "Vanessa"
-        };
 
-        String[] sobrenomes = {
-                "Silva", "Santos", "Oliveira", "Costa", "Pereira", "Rodrigues", "Almeida", "Souza", "Mendes", "Gomes"
-        };
-
-        Random random = new Random();
-
-        String primeiroNome = primeirosNomes[random.nextInt(primeirosNomes.length)];
-        String sobrenome = sobrenomes[random.nextInt(sobrenomes.length)];
-        return primeiroNome + sobrenome;
-    }
-
-    String gerarTelefone() {
-        Random random = new Random();
-        int ddd = random.nextInt(90) + 11;
-        StringBuilder telefone = new StringBuilder();
-        telefone.append("9");
-        for (int i = 0; i < 8; i++) {
-            telefone.append(random.nextInt(10));
-        }
-        return ddd + telefone.toString();
-    }
-
-    String gerarEmail() {
-        String[] dominios = {
-                "gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "live.com", "aol.com"
-        };
-        String nomeDeUsuario = gerarNome();
-        Random random = new Random();
-        String dominio = dominios[random.nextInt(dominios.length)];
-        return nomeDeUsuario + "@" + dominio;
-    }
 }
