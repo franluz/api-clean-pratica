@@ -1,8 +1,8 @@
 package br.com.alura.adopet.api.model;
 
 import br.com.alura.adopet.api.dto.CadastroPetDto;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
 
@@ -30,11 +30,11 @@ public class Pet {
     private Boolean adotado;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference("abrigo_pets")
+
     private Abrigo abrigo;
 
     @OneToOne(mappedBy = "pet", fetch = FetchType.LAZY)
-    @JsonBackReference("adocao_pets")
+
     private Adocao adocao;
 
     @Override
@@ -85,9 +85,6 @@ public class Pet {
         return tipo;
     }
 
-    public void setTipo(TipoPet tipo) {
-        this.tipo = tipo;
-    }
 
     public String getNome() {
         return nome;
@@ -101,41 +98,26 @@ public class Pet {
         return raca;
     }
 
-    public void setRaca(String raca) {
-        this.raca = raca;
-    }
 
     public Integer getIdade() {
         return idade;
     }
 
-    public void setIdade(Integer idade) {
-        this.idade = idade;
-    }
 
     public String getCor() {
         return cor;
     }
 
-    public void setCor(String cor) {
-        this.cor = cor;
-    }
 
     public Float getPeso() {
         return peso;
     }
 
-    public void setPeso(Float peso) {
-        this.peso = peso;
-    }
 
     public Boolean getAdotado() {
         return adotado;
     }
 
-    public void setAdotado(Boolean adotado) {
-        this.adotado = adotado;
-    }
 
     public Abrigo getAbrigo() {
         return abrigo;

@@ -45,7 +45,7 @@ public class PetService {
             if (abrigo.getId() == null) {
                 abrigo = repository.findByNome(idOuNome);
             }
-            Pet pet = new Pet(abrigo, false, dto.raca(), dto.cor(), dto.nome());
+            Pet pet = new Pet(dto,abrigo);
             abrigo.getPets().add(pet);
         } catch (EntityNotFoundException enfe) {
             throw new ValidacaoException(enfe.getMessage());

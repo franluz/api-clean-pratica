@@ -33,12 +33,15 @@ public class AbrigoController {
     @PostMapping
     @Transactional
     public ResponseEntity<String> cadastrar(@RequestBody @Valid CadastroAbrigoDto dto) {
-         try {
+        ResponseEntity<String> response = ResponseEntity.ok("Cadastro realizado com sucesso");
+        try {
             service.cadastrar(dto);
+
         } catch (ValidacaoException e) {
             ResponseEntity.badRequest().body(e.getMessage());
+            response = ResponseEntity.badRequest().body(e.getMessage());
         }
-        return ResponseEntity.ok("Cadastro realizado com sucesso");
+        return response;
     }
 
     @GetMapping("/{idOuNome}/pets")
@@ -49,7 +52,7 @@ public class AbrigoController {
     @PostMapping("/{idOuNome}/pets")
     @Transactional
     public ResponseEntity<String> cadastrarPet(@PathVariable String idOuNome, @RequestBody @Valid CadastroPetDto pet) {
-        petService.cadastrar(idOuNome,pet);
+        petService.cadastrar(idOuNome, pet);
         return ResponseEntity.ok("Cadastro realizado com sucesso");
 
     }
